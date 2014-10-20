@@ -1,0 +1,5 @@
+c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\bin\Lab 3.dll.config
+c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\bin\Lab 3.dll
+c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\bin\Lab 3.pdb
+c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\obj\Release\Lab 3.dll
+c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\obj\Release\Lab 3.pdb

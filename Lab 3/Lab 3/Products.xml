@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<products>
+  <product>
+    <id>1</id>
+    <name>可口可乐</name>
+    <price>3.0</price>
+  </product>
+  <product>
+    <id>2</id>
+    <name>百事可乐</name>
+    <price>3.2</price>
+  </product>
+  <product>
+    <id>3</id>
+    <name>芬达</name>
+    <price>2.8</price>
+  </product>
+</products>
