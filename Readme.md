@@ -4,7 +4,7 @@
 
 ![ScreenShot](./ScreenShot.png)
 
-![Database](./Database.png)
+![Database](./Database.jpg)
 
 ## 运行环境
 - 装有.NET Framework 4.0或以上以及MySQL的电脑
