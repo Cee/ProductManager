@@ -4,94 +4,122 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Xml;
+using MySql.Data.MySqlClient;
 
 namespace Lab_3
 {
     public class Products
     {
         private List<Product> ret = new List<Product>();
-        private string xmlPath = HttpContext.Current.Server.MapPath("~/Products.xml");//相对路径
-        //private string xmlPath = "C:/Users/Cee/Documents/Visual Studio 2013/Projects/Lab 3/Lab 3/Products.xml";
-        private XmlDocument xml = new XmlDocument();
+        private MySqlConnection mysql = getMySqlCon();
             
         public Products()
         {
             
         }
 
+        private static MySqlConnection getMySqlCon()
+        {
+            String mysqlStr = "Database=products;Data Source=127.0.0.1;User Id=root;Password=;pooling=false;CharSet=utf8;port=3306";
+            MySqlConnection mysql = new MySqlConnection(mysqlStr);
+            return mysql;
+        }
+
+        public static MySqlCommand getSqlCommand(String sql, MySqlConnection mysql)
+        {
+            MySqlCommand mySqlCommand = new MySqlCommand(sql, mysql);
+            return mySqlCommand;
+        }
+
         public List<Product> GetProducts()
         {
-            
-            xml.Load(xmlPath);
-            XmlNodeList items = xml.SelectNodes("/products/product");
-            xml.Save(xmlPath);
-            foreach (XmlNode item in items)
+            ret.Clear();
+
+            mysql.Open();
+            String sqlSearch = "select * from product";
+            MySqlCommand mySqlCommand = getSqlCommand(sqlSearch, mysql);
+            MySqlDataReader reader = mySqlCommand.ExecuteReader();
+            try
             {
-                Product p = new Product(item.ChildNodes.Item(0).InnerText,
-                                        item.ChildNodes.Item(1).InnerText,
-                                        item.ChildNodes.Item(2).InnerText);
-                ret.Add(p);
+                while (reader.Read())
+                {
+                    if (reader.HasRows)
+                    {
+                        Product p = new Product(reader.GetString(0), reader.GetString(1), reader.GetString(2));
+                        ret.Add(p);
+                    }
+                }
             }
+            catch (Exception)
+            {
+                Console.WriteLine("Fail!");
+            }
+            finally
+            {
+                reader.Close();
+                mysql.Close();
+            }
+
             return ret;
         }
 
         public void InsertProduct(string id, string name, string price)
         {
-            Product p = new Product(id, name, price);
-
-            XmlElement idItem = xml.CreateElement("id");
-            XmlElement nameItem = xml.CreateElement("name");
-            XmlElement priceItem = xml.CreateElement("price");
-
-            idItem.InnerText = id;
-            nameItem.InnerText = name;
-            priceItem.InnerText = price;
-
-            XmlElement newItem = xml.CreateElement("product");
-            newItem.AppendChild(idItem);
-            newItem.AppendChild(nameItem);
-            newItem.AppendChild(priceItem);
-
-            xml.Load(xmlPath);
-            xml.SelectNodes("/products").Item(0).AppendChild(newItem);
-            xml.Save(xmlPath);
-
-            ret.Clear();
+            mysql.Open();
+            String sqlInsert = "insert into product values (" + id + ", " + name + ", " + price + ")";
+            MySqlCommand mySqlCommand = getSqlCommand(sqlInsert, mysql);
+            try
+            {
+                mySqlCommand.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Fail!");
+            }
+            finally
+            {
+                mysql.Close();
+            }
             ret = GetProducts();
         }
         public void DeleteProduct(string id)
         {
-            xml.Load(xmlPath);
-            XmlNodeList items = xml.SelectNodes("/products/product");
-            foreach (XmlNode item in items)
+            mysql.Open();
+            String sqlDelete = "delete from product where id='" + id + "'";
+            MySqlCommand mySqlCommand = getSqlCommand(sqlDelete, mysql);
+            try
             {
-                if (item.ChildNodes.Item(0).InnerText == id)
-                {
-                    //remove
-                    xml.SelectNodes("/products").Item(0).RemoveChild(item);
-                    break;
-                }
+                mySqlCommand.ExecuteNonQuery();
             }
-            xml.Save(xmlPath);
-            ret.Clear();
+            catch (Exception)
+            {
+                Console.WriteLine("Fail!");
+            }
+            finally
+            {
+                mysql.Close();
+            }
+            
             ret = GetProducts();
         }
         public void UpdateProduct(string id, string name, string price)
         {
-            xml.Load(xmlPath);
-            XmlNodeList items = xml.SelectNodes("/products/product");
-            foreach (XmlNode item in items)
+            mysql.Open();
+            String sqlUpdate = "update product set name='" + name + "' , price='" + price + "' where id='" + id + "'";
+            MySqlCommand mySqlCommand = getSqlCommand(sqlUpdate, mysql);
+            try
             {
-                if (item.ChildNodes.Item(0).InnerText == id)
-                {
-                    //update
-                    item.ChildNodes.Item(1).InnerText = name;
-                    item.ChildNodes.Item(2).InnerText = price;
-                    break;
-                }
+                mySqlCommand.ExecuteNonQuery();
             }
-            xml.Save(xmlPath);
-            ret.Clear();
+            catch (Exception)
+            {
+                Console.WriteLine("Fail!");
+            }
+            finally
+            {
+                mysql.Close();
+            }
+
             ret = GetProducts();
         }
     }

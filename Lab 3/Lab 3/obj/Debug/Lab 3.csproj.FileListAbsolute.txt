@@ -3,3 +3,9 @@ c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\bin\Lab 3.dll
 c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\bin\Lab 3.pdb
 c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\obj\Debug\Lab 3.dll
 c:\users\cee\documents\visual studio 2013\Projects\Lab 3\Lab 3\obj\Debug\Lab 3.pdb
+C:\Users\Cee\Documents\Projects\ProductManager\Lab 3\Lab 3\bin\Lab 3.dll.config
+C:\Users\Cee\Documents\Projects\ProductManager\Lab 3\Lab 3\bin\Lab 3.dll
+C:\Users\Cee\Documents\Projects\ProductManager\Lab 3\Lab 3\bin\Lab 3.pdb
+C:\Users\Cee\Documents\Projects\ProductManager\Lab 3\Lab 3\obj\Debug\Lab 3.csprojResolveAssemblyReference.cache
+C:\Users\Cee\Documents\Projects\ProductManager\Lab 3\Lab 3\obj\Debug\Lab 3.dll
+C:\Users\Cee\Documents\Projects\ProductManager\Lab 3\Lab 3\obj\Debug\Lab 3.pdb
